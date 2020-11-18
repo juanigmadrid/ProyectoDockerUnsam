@@ -1,27 +1,27 @@
 version: '3'
 
 services:
-    gitlab:
-        image: 'gitlab/gitlab-ce:latest'
-        restart: always
-        hostname: '${HOST}'
-        environment:
-            VIRTUAL_HOST: '${HOST}'
-            LETSENCRYPT_HOST: '${HOST}'
-            GITLAB_OMNIBUS_CONFIG: |
-            external_url 'https://${HOST}'
-            # Add any other gitlab.rb configuration here, each on its own line
-            gitlab_rails['gitlab_shell_ssh_port'] = ${SSH_PORT}
-            nginx['listen_https'] = false
-            nginx['listen_port'] = 80
-        ports:
-            - '${SSH_PORT}:22'
-        volumes:
-            - '${GITLAB_HOME}/config:/etc/gitlab'
-            - '${GITLAB_HOME}/logs:/var/log/gitlab'
-            - '${GITLAB_HOME}/data:/var/opt/gitlab'
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: '${HOST}'
+    environment:
+      VIRTUAL_HOST: '${HOST}'
+      LETSENCRYPT_HOST: '${HOST}'
+      GITLAB_OMNIBUS_CONFIG: |
+      external_url 'https://${HOST}'
+      # Add any other gitlab.rb configuration here, each on its own line
+      gitlab_rails['gitlab_shell_ssh_port'] = ${SSH_PORT}
+      nginx['listen_https'] = false
+      nginx['listen_port'] = 80
+    ports:
+      - '${SSH_PORT}:22'
+    volumes:
+      - '${GITLAB_HOME}/config:/etc/gitlab'
+      - '${GITLAB_HOME}/logs:/var/log/gitlab'
+      - '${GITLAB_HOME}/data:/var/opt/gitlab'
 
 networks:
-    default:
-        external:
-            name: ${DOCKER_NETWORK}
+  default:
+    external:
+      name: proxy-network
