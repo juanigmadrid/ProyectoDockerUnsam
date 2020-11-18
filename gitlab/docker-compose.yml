@@ -1,26 +1,28 @@
-version: "3"
-services:
+version: '3'
 
-  gitlab:
-    image: 'gitlab/gitlab-ce:latest'
-    restart: always
-    hostname: 'localhost'
-    environment:
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://localhost:8080'
-        # Add any other gitlab.rb configuration here, each on its own line
-        gitlab_rails['gitlab_shell_ssh_port'] = 8022
-        nginx['listen_port'] = 8080
-    ports:
-      - '8080:8080'
-      - '8022:22'
-    volumes:
-      - '/srv/gitlab/config:/etc/gitlab'
-      - '/srv/gitlab/logs:/var/log/gitlab'
-      - '/srv/gitlab/data:/var/opt/gitlab'
-    networks:
-      - gitlab_network
+services:
+    gitlab:
+        image: 'gitlab/gitlab-ce:latest'
+        restart: always
+        hostname: 'gitlab.juano.tk'
+        networks:
+            - proxy-network
+        env_file:
+            - .env
+        environment:
+            GITLAB_OMNIBUS_CONFIG: |
+            external_url 'https://gitlab.juano.tk'
+            # Add any other gitlab.rb configuration here, each on its own line
+            gitlab_rails['gitlab_shell_ssh_port'] = 8022
+            nginx['listen_https'] = false
+            nginx['listen_port'] = 80
+        ports:
+            - '8022:22'
+        volumes:
+            - '/srv/gitlab/config:/etc/gitlab'
+            - '/srv/gitlab/logs:/var/log/gitlab'
+            - '/srv/gitlab/data:/var/opt/gitlab'
 
 networks:
-  gitlab_network:
-    external: true
+    proxy-network:
+        external: true
