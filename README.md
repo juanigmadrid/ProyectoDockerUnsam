@@ -15,7 +15,7 @@ $ docker-compose up -d
 ```
 - Agregamos una nueva configuración al contenedor del proxy para permitir la subida de archivos mayores a 5 MB (para evitar problemas al hacer push a gitlab)
 ```
-$ docker-compose exec proxy echo "client_max_body_size 0;" > example.com
+$ docker-compose exec proxy echo "client_max_body_size 0;" > /etc/nginx/vhost.d/gitlab.example.com
 ```
 # Gitlab Container.
 
