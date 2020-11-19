@@ -1,11 +1,13 @@
 # Pasos de instalación.
 
 - Clonamos el repositorio en nuestro equipo:
-> $ git clone https://github.com/juanigmadrid/ProyectoDockerUnsam.git
+``$ git clone https://github.com/juanigmadrid/ProyectoDockerUnsam.git``
 - Crear network para proxy:
 ``$ docker network create proxy-network``
 - Correr docker-compose para levantar el proxy:
-``$ 
+``$ cd ProyectoDockerUnsam
+$ cd proxy
+$ docker-compose up -d``
 
 # Gitlab Container.
 
