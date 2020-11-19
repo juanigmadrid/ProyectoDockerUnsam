@@ -10,11 +10,13 @@ $ docker network create proxy-network
 ```
 - Correr docker-compose para levantar el proxy:
 ```
-$ cd ProyectoDockerUnsam
-$ cd proxy
+$ cd ProyectoDockerUnsam/proxy
 $ docker-compose up -d
 ```
-
+- Agregamos una nueva configuración al contenedor del proxy para permitir la subida de archivos mayores a 5 MB (para evitar problemas al hacer push a gitlab)
+```
+$ docker-compose exec proxy echo "client_max_body_size 0;" > example.com
+```
 # Gitlab Container.
 
 Aquí definiremos un contenedor de GitLab utilizando la última imagen oficial y definiendo su configuración en un archivo de docker-compose.
